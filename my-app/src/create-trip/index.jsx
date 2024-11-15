@@ -1,6 +1,9 @@
 import { Button } from "../components/ui/button"
 import { SelectBudgetOptions, SelectTravelList } from "../constants/options"
 import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
+import { AI_PROMPT } from "../service/AIModel"
+import { chatSession } from "../service/AIModel"
 
 function Index() {
   const [place, setPlace] = useState(null)
@@ -25,6 +28,28 @@ function Index() {
   useEffect(() => {
     console.log(formData)
   }, [formData])
+
+  // Generate trip function
+  const GenerateTrip = async () => {
+    if (
+      formData.place === null ||
+      formData.noOfdays === null ||
+      formData.budget === null ||
+      formData.travelCompanion === null
+    ) {
+      toast.error("Please fill in all the details to generate the trip.")
+      return
+    }
+    toast.success("Generating trip...")
+    const FINAL_PROMPT = AI_PROMPT.replace("{location}", formData?.place)
+      .replace("{totalDays}", formData?.noOfdays)
+      .replace("{travelers}", formData?.travelCompanion)
+      .replace("{budget}", formData?.budget)
+    console.log(FINAL_PROMPT)
+    const result = await chatSession.sendMessage(FINAL_PROMPT)
+
+    console.log(result?.response?.text())
+  }
 
   return (
     <div className="p-5 rounded-md bg-white mx-20">
@@ -136,7 +161,7 @@ function Index() {
 
       {/* Button to submit the form */}
       <div className="mt-10 flex justify-end">
-        <Button onClick={() => console.log(formData)}>Generate Trip</Button>
+        <Button onClick={GenerateTrip}>Generate Trip</Button>
       </div>
     </div>
   )

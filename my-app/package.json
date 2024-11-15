@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.456.0",
@@ -19,6 +21,7 @@
     "react-google-places-autocomplete": "^4.1.0",
     "react-native-google-places-autocomplete": "^2.5.7",
     "react-router-dom": "^6.28.0",
+    "react-toastify": "^10.0.6",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
   },
